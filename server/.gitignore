@@ -1,0 +1,11 @@
+# Ignore environment variables
+.env
+
+# Node modules (don't upload these)
+node_modules/
+
+# Logs
+*.log
+
+# System files
+.DS_Store

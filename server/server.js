@@ -2,13 +2,17 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const connectDB = require('./config/db');
-const path = require('path');
+// const path = require('path');
 
 // Load environment variables
 require('dotenv').config();
 
 // Connect to database
 connectDB();
+app.use(cors({
+    origin: 'https://task-manager-three-pied.vercel.app/',
+    credentials: true
+}));
 
 const app = express();
 
@@ -26,14 +30,14 @@ app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/tasks', require('./routes/taskRoutes'));
 
 // Serve static assets in production
-if (process.env.NODE_ENV === 'production') {
-    // Set static folder
-    app.use(express.static('client/dist'));
+// if (process.env.NODE_ENV === 'production') {
+//     // Set static folder
+//     app.use(express.static('client/dist'));
 
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, '..', 'client', 'dist', 'index.html'));
-    });
-}
+//     app.get('*', (req, res) => {
+//         res.sendFile(path.resolve(__dirname, '..', 'client', 'dist', 'index.html'));
+//     });
+// }
 
 // Error handling middleware
 app.use((err, req, res, next) => {
